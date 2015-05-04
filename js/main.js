@@ -3,7 +3,7 @@ $(document).ready(function(){
     var canvas = $('canvas');
     var canvasWidth = canvas.width() - 100;
     var canvasHeight = canvas.height() - 100;
-    var originalLineWidth = 30;
+    var originalLineWidth = canvasWidth / 4;
     var linedrawn = [];
 
     init();
@@ -36,14 +36,20 @@ $(document).ready(function(){
     }
 
     function generate(n, ratio, newLines){
-        if(n > 30 && n <= 60){
-            originalLineWidth = 15;
-        }else if(n > 60 && n <= 99){
-            originalLineWidth = 10;
-        }else if(n > 99){
-            originalLineWidth = 10;
-            ratio /= 2;
+        //if(n > 30 && n <= 60){
+        //    originalLineWidth = 15;
+        //}else if(n > 60 && n <= 99){
+        //    originalLineWidth = 10;
+        //}else if(n > 99){
+        //    originalLineWidth = 10;
+        //    ratio /= 2;
+        //}
+        if (ratio > 0){
+            originalLineWidth = originalLineWidth / Math.pow(ratio, ratio/4);
+        }else{
+            originalLineWidth = originalLineWidth / Math.pow(ratio/4, ratio);
         }
+
         for(var i = 0; i <= n; i++){
             newLines = generateLines(ratio, newLines);
             draw(newLines);
